@@ -1,0 +1,92 @@
+@font-face {
+    font-family: 'Digital';
+    src: url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot');
+    src: url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot?#iefix')
+        format('embedded-opentype'),
+        url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2')
+        format('woff2'),
+        url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff')
+        format('woff'),
+        url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.ttf')
+        format('truetype'),
+        url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.svg#Digital-7')
+        format('svg');
+}
+
+* , *::before, *::after{
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    background-color: azure;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#main{    
+    overflow: auto;
+    margin: 0;
+}
+
+#wrapper{
+    height: fit-content;
+    width: fit-content;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    justify-content: center;
+    align-items: center;
+    background-color:black;
+    margin:auto;
+    font-weight: bold;
+    font-family:Digital, Verdana, Arial, sans-serif;
+    border: 2px solid black;
+}
+
+footer{
+    #git{
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+#calculator{
+    margin: 2px;
+    border: 1px solid blue;
+}
+
+h1{
+    text-align:center;
+    color: azure;
+}
+
+section{
+    text-align: right;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    background-color:black;
+}
+
+.display-top{
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+    color: orange;
+    font-size: 0.8em
+}
+
+.display-bot{
+    color: azure;
+    font-size: 1.8em;
+}
+
+td{
+    height: 75px;
+    width: 75px;
+    text-align:center;
+    cursor:pointer;
+    font-size:2em;
+}  

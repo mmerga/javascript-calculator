@@ -1,6 +1,3 @@
-//import { jsx as _jsx } from "https://cdn.skypack.dev/react-jsx-runtime@1.0.0-alpha.1"; ////--------------- babel pack
-/* import React from "https://cdn.skypack.dev/react@17.0.1";
-import ReactDOM from "https://cdn.skypack.dev/react-dom@17.0.1"; */
 import React from 'react'
 import ReactDOM from 'react-dom';
 import * as mathjs from "https://cdn.skypack.dev/mathjs@11.8.0";

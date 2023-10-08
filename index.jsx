@@ -1,6 +1,10 @@
+//import { jsx as _jsx } from "https://cdn.skypack.dev/react-jsx-runtime@1.0.0-alpha.1"; ////--------------- babel pack
+/* import React from "https://cdn.skypack.dev/react@17.0.1";
+import ReactDOM from "https://cdn.skypack.dev/react-dom@17.0.1"; */
 import React from 'react'
 import ReactDOM from 'react-dom';
 import * as mathjs from "https://cdn.skypack.dev/mathjs@11.8.0";
+import { FiDelete } from 'react-icons/fi';
 
 const INIT_VALUE = '0';
 
@@ -46,7 +50,6 @@ class App extends React.Component {
       if(firstPosition !== -1){
         const secondPosition = this.state.displayBot.indexOf('.', firstPosition + 1);
         if(secondPosition !== -1){
-          console.log("TWO DOTS");
           this.setState({
             displayTop: prevState.displayTop,
             displayBot: prevState.displayBot,
@@ -76,6 +79,18 @@ class App extends React.Component {
             this.elementRefs[index].click();
           }
         }
+      }else if(event.key === ' '){
+        for (let index = 0 ;index < this.elementRefs.length ; index ++) {
+          if(this.elementRefs[index].textContent === 'AC'){
+            this.elementRefs[index].click();
+          } 
+        }
+      }else if(event.key == "Backspace"){
+        for (let index = 0 ;index < this.elementRefs.length ; index ++) {
+          if(this.elementRefs[index].textContent === ''){
+            this.elementRefs[index].click();
+          } 
+        }
       }else if(event.key == 'Enter'){
         const key = '=';
         for (let index = 0 ;index < this.elementRefs.length ; index ++) {
@@ -91,7 +106,7 @@ class App extends React.Component {
         }
       }
     }catch (error) {
-      console.log({error});
+      //console.log({error});
     }
   }
  /////////////////////////////----------------------\\\\\\\\\\\\\\\\\\\\\\\\\\\   
@@ -104,6 +119,28 @@ class App extends React.Component {
         result: false
       }
     ));
+  }
+  /////////////////////////////----------------------\\\\\\\\\\\\\\\\\\\\\\\\\\\  
+  handleDelete = () => {
+    if(this.state.result == false){
+      this.setState((prevState) =>  {
+        if(this.state.displayBot.length === 1){
+          return (
+            {
+              displayTop: INIT_VALUE,
+              displayBot: INIT_VALUE,
+            }
+          );
+        }else{
+          return (
+            {
+              displayTop: prevState.displayTop.slice(0,-1),
+              displayBot: prevState.displayBot.slice(0,-1),
+            }
+            );
+          }
+        });
+    }
   }
   /////////////////////////////----------------------\\\\\\\\\\\\\\\\\\\\\\\\\\\  
   handleEquals = () => { 
@@ -119,7 +156,7 @@ class App extends React.Component {
           }
         ));
       } catch (error) {
-        console.error({error, message: 'not a valid entry'});
+        //console.error({error, message: 'not a valid entry'});
         this.setState((prevState) =>  (
           { 
             displayTop: INIT_VALUE,
@@ -141,7 +178,7 @@ class App extends React.Component {
           }
         ));
       } catch (error) {
-        console.error({error, message: 'not a valid entry'});
+        //console.error({error, message: 'not a valid entry'});
         this.setState((prevState) =>  (
           { 
             displayTop: INIT_VALUE,
@@ -448,40 +485,43 @@ class App extends React.Component {
           <section id="display" className="display-bot">{this.state.displayBot}</section>
         </div>
         <table>
-          <tr>
-            <td id="clear" className="btn-warning" onClick={this.handleReset} colspan="2">AC</td>
-            <td id="divide" className="btn-dark" onClick={this.handleDivide} ref={(element) => this.elementRefs.push(element)}>/</td>
-            <td id="multiply" className="btn-dark" onClick={this.handleMultiply} ref={(element) => this.elementRefs.push(element)}>*</td>
-          </tr>
-          <tr>
-            <td id="seven" className="btn-secondary" onClick={this.handleSeven} ref={(element) => this.elementRefs.push(element)}>7</td>
-            <td id="eight" className="btn-secondary" onClick={this.handleEight} ref={(element) => this.elementRefs.push(element)}>8</td>
-            <td id="nine" className="btn-secondary" onClick={this.handleNine} ref={(element) => this.elementRefs.push(element)}>9</td>
-            <td id="subtract" className="btn-dark"  onClick={this.handleSubtract} ref={(element) => this.elementRefs.push(element)}>-</td>
-          </tr>
-          <tr>
-            <td id="four" className="btn-secondary" onClick={this.handleFour} ref={(element) => this.elementRefs.push(element)}>4</td>         
-            <td id="five" className="btn-secondary" onClick={this.handleFive} ref={(element) => this.elementRefs.push(element)}>5</td>
-            <td id="six" className="btn-secondary" onClick={this.handleSix} ref={(element) => this.elementRefs.push(element)}>6</td>
-            <td id="add" className="btn-dark" onClick={this.handleAdd} ref={(element) => this.elementRefs.push(element)}>+</td>
-          </tr>
-          <tr>
-            <td id="one" className="btn-secondary" onClick={this.handleOne} ref={(element) => this.elementRefs.push(element)}>1</td>         
-            <td id="two" className="btn-secondary" onClick={this.handleTwo} ref={(element) => this.elementRefs.push(element)}>2</td>
-            <td id="three" className="btn-secondary" onClick={this.handleThree} ref={(element) => this.elementRefs.push(element)}>3</td>
-            <td id="equals" className="btn-success" onClick={this.handleEquals} rowspan="2" ref={(element) => this.elementRefs.push(element)}>=</td>
-          </tr>
-          <tr>
-            <td id="zero" className="btn-secondary" onClick={this.handleZero} colspan="2" ref={(element) => this.elementRefs.push(element)}>0</td>         
-            <td id="decimal" className="btn-secondary" onClick={this.handleFloat} ref={(element) => this.elementRefs.push(element)}>.</td>         
-          </tr>
+          <tbody>
+            <tr>
+              <td id="clear" className="btn-danger" accessKey=' ' onClick={this.handleReset} ref={(element) => this.elementRefs.push(element)}>AC</td>
+              <td id="delete" className="btn-warning" accessKey='backspace' onClick={this.handleDelete} ref={(element) => this.elementRefs.push(element)}><FiDelete /></td>
+              <td id="divide" className="btn-dark" accessKey='/' onClick={this.handleDivide} ref={(element) => this.elementRefs.push(element)}>/</td>
+              <td id="multiply" className="btn-dark" accessKey='*' onClick={this.handleMultiply} ref={(element) => this.elementRefs.push(element)}>*</td>
+            </tr>
+            <tr>
+              <td id="seven" className="btn-secondary" accessKey='7' onClick={this.handleSeven} ref={(element) => this.elementRefs.push(element)}>7</td>
+              <td id="eight" className="btn-secondary" accessKey='8' onClick={this.handleEight} ref={(element) => this.elementRefs.push(element)}>8</td>
+              <td id="nine" className="btn-secondary" accessKey='9' onClick={this.handleNine} ref={(element) => this.elementRefs.push(element)}>9</td>
+              <td id="subtract" className="btn-dark" accessKey='-' onClick={this.handleSubtract} ref={(element) => this.elementRefs.push(element)}>-</td>
+            </tr>
+            <tr>
+              <td id="four" className="btn-secondary" accessKey='4' onClick={this.handleFour} ref={(element) => this.elementRefs.push(element)}>4</td>         
+              <td id="five" className="btn-secondary" accessKey='5' onClick={this.handleFive} ref={(element) => this.elementRefs.push(element)}>5</td>
+              <td id="six" className="btn-secondary" accessKey='6' onClick={this.handleSix} ref={(element) => this.elementRefs.push(element)}>6</td>
+              <td id="add" className="btn-dark" accessKey='+' onClick={this.handleAdd} ref={(element) => this.elementRefs.push(element)}>+</td>
+            </tr>
+            <tr>
+              <td id="one" className="btn-secondary" accessKey='1' onClick={this.handleOne} ref={(element) => this.elementRefs.push(element)}>1</td>         
+              <td id="two" className="btn-secondary" accessKey='2' onClick={this.handleTwo} ref={(element) => this.elementRefs.push(element)}>2</td>
+              <td id="three" className="btn-secondary" accessKey='3' onClick={this.handleThree} ref={(element) => this.elementRefs.push(element)}>3</td>
+              <td id="equals" className="btn-success" accessKey='enter' onClick={this.handleEquals} rowSpan="2" ref={(element) => this.elementRefs.push(element)}>=</td>
+              <td style={{'display': 'none'}} accessKey='=' ref={(element) => this.elementRefs.push(element)}>=</td>
+            </tr>
+            <tr>
+              <td id="zero" className="btn-secondary" accessKey='2' onClick={this.handleZero} colSpan="2" ref={(element) => this.elementRefs.push(element)}>0</td>         
+              <td id="decimal" className="btn-secondary" accessKey=',' onClick={this.handleFloat} ref={(element) => this.elementRefs.push(element)}>.</td>         
+              <td style={{'display': 'none'}} accessKey='.' ref={(element) => this.elementRefs.push(element)}>.</td>         
+            </tr>
+          </tbody>
         </table>
       </div>
     );
   }
 }
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
     const MyApp = <App />;    

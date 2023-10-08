@@ -69,18 +69,24 @@ section{
     overflow-wrap: break-word;
     word-wrap: break-word;
     background-color:black;
+    max-width: 300px;
+    overflow-x: hidden;
 }
 
 .display-top{
     border-top: solid 1px black;
     border-bottom: solid 1px black;
     color: orange;
-    font-size: 0.8em
+    font-size: 0.8em;
+    height:3em;
+    overflow:hidden;
 }
 
 .display-bot{
     color: azure;
     font-size: 1.8em;
+    height:1.8em;
+    overflow:hidden;
 }
 
 td{
